@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="web_weather_widget.WeatherWidget" owl="1">
+    <div>
+        <a href="#" title="Weather Widget">
+            <p class="m-2">
+                <span class="ml-2">
+                    <t t-if="state.weather_icon != 'ban'">
+                        <t t-esc="state.current_temp"/><span>° </span>
+                    </t>
+                </span>
+
+                <i t-attf-class="fa fa-fw fa-#{state.weather_icon}" role="img"/>
+
+            </p>
+        </a>
+    </div>
+</t>
+</templates>
