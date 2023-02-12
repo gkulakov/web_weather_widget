@@ -71,15 +71,15 @@ class WeatherWidget extends Component {
     }
     
     async updateWeatherInformation(latitude, longitude) {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=1`
-        const response = await fetch(url);
+        const base_url = "https://api.open-meteo.com/v1/forecast"
+        const api_url = `${base_url}?latitude=${latitude}&longitude=${longitude}&current_weather=1`
+        const response = await fetch(api_url);
         if (!response.ok) {
             throw new OwlError("Cannot get weather information from weather API");
         }
-        const resp = await response.json()
-        this.state.current_temp = resp["current_weather"]["temperature"];
-        this.state.weather_icon = this.getWeatherIcon(resp["current_weather"]["weathercode"])
-    }
+        const { current_weather: { temperature, weathercode } } = await response.json()
+        this.state.current_temp = temperature;
+        this.state.weather_icon = this.getWeatherIcon(weathercode)
 }
 
 WeatherWidget.template = "web_weather_widget.WeatherWidget";
